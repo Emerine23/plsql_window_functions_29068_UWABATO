@@ -104,8 +104,14 @@ Shows customers who lives in the same place
 REFERENCES
 --
 [] https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/index.html
+
 [] https://www.postgresql.org/docs/current
+
 [] https://www.w3schools.com/sql
+
 [] : https://mode.com/sql-tutorial/sql-window-functions
+
 [] https://www.geeksforgeeks.org/sql-window-functions
+
 [] s6 Computer science book
+
