@@ -27,3 +27,6 @@ Creating table sales and inserting data
 Query: Create table Sales (sales_id varchar(21) primary key, Customer_id varchar(21),product_id varchar(21),sales_date DATE, quantity INT, 
 foreign key (Customer_id) references Customers(Customer_id),foreign key(product_id) references Products(product_id));
 ![sales table](https://github.com/user-attachments/assets/d4cc5ee8-360b-494d-a91d-70199bf00708)
+
+ER diagram of the company
+<img width="725" height="514" alt="Screenshot 2026-02-06 224757" src="https://github.com/user-attachments/assets/bdc0efee-8d69-4cc8-abe4-007dc57d9692" />
