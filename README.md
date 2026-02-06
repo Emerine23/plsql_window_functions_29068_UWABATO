@@ -1,2 +1,2 @@
-#PROBLEM DEFINITION
---------------------
+PROBLEM DEFINITION
+--
