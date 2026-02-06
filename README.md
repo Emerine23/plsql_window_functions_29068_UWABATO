@@ -30,3 +30,62 @@ foreign key (Customer_id) references Customers(Customer_id),foreign key(product_
 
 ER diagram of the company
 <img width="725" height="514" alt="Screenshot 2026-02-06 224757" src="https://github.com/user-attachments/assets/bdc0efee-8d69-4cc8-abe4-007dc57d9692" />
+Top products per revenue 
+--
+SELECT p.product_name, SUM(s.quantity * p.product_price) AS total_sales, ROW_NUMBER() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS row_no, RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS rank_no, DENSE_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS dense_rank_no, PERCENT_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price)) AS percent_rank FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.product_name;
+![Ranking functions](https://github.com/user-attachments/assets/bd76a939-7149-438d-983b-1a61d3c4e8da)
+
+WINDOW FUNCTIONS
+--
+
+Running total trends
+--
+SELECT s.sales_date,(s.quantity * p.product_price) AS sale_amount, SUM(s.quantity * p.product_price) OVER (ORDER BY s.sales_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total, AVG(s.quantity * p.product_price) OVER (ORDER BY s.sales_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_avg, MIN(s.quantity * p.product_price) OVER (ORDER BY s.sales_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS min_so_far, MAX(s.quantity * p.product_price) OVER (ORDER BY s.sales_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS max_so_far FROM sales s JOIN products p ON s.product_id = p.product_id ORDER BY s.sales_date;
+<img width="835" height="210" alt="aggregate functions" src="https://github.com/user-attachments/assets/9c88519b-1129-42f8-a153-2383c60bfacb" />
+
+Comparing sales over time
+--
+SELECT s.sales_date, (s.quantity * p.product_price) AS current_sales, LAG(s.quantity * p.product_price) OVER (ORDER BY s.sales_date) AS previous_sales, (s.quantity * p.product_price) - LAG(s.quantity * p.product_price) OVER (ORDER BY s.sales_date) AS growth FROM sales s JOIN products p ON s.product_id = p.product_id ORDER BY s.sales_date;
+<img width="843" height="216" alt="navigation window function" src="https://github.com/user-attachments/assets/b6b333df-2a4b-4cea-9f70-6310ff7bfd5d" />
+
+Customer segmentation
+--
+SELECT c.customer_name, SUM(s.quantity * p.product_price) AS total_spent,  NTILE(4) OVER (ORDER BY SUM(s.quantity * p.product_price)) AS spending_group, CUME_DIST() OVER (ORDER BY SUM(s.quantity * p.product_price)) AS spending_distribution FROM customers c JOIN sales s  ON c.customer_id = s.customer_id JOIN products p ON s.product_id = p.product_id GROUP BY c.customer_name;
+<img width="678" height="213" alt="distribution function" src="https://github.com/user-attachments/assets/e6b91dc5-2140-448f-a504-daa106d3d830" />
+
+SQL Joins
+--
+INNER JOIN
+--
+SELECT s.sales_id, c.customer_name, p.product_name, s.sales_date, s.quantity FROM sales s INNER JOIN customers c ON s.customer_id = c.customer_id INNER JOIN products p  ON s.product_id = p.product_id;
+<img width="747" height="199" alt="inner join" src="https://github.com/user-attachments/assets/ef8ce61b-96b9-43fb-bce0-1871c87b29ef" />
+
+It shows valid sales with customers and products.
+
+LEFT JOIN
+--
+SELECT c.customer_id, c.customer_name, s.sales_id FROM customers c LEFT JOIN sales s ON c.customer_id = s.customer_id WHERE s.sales_id IS NULL;
+<img width="434" height="157" alt="left join" src="https://github.com/user-attachments/assets/e70a0ce5-14b0-4724-9008-92169dec1a9c" />
+
+Shows customers with no sales
+
+RIGHT JOIN
+--
+SELECT p.product_id,  p.product_name, s.sales_id FROM sales s RIGHT JOIN products p ON s.product_id = p.product_id WHERE s.sales_id IS NULL;
+<img width="585" height="197" alt="Right join" src="https://github.com/user-attachments/assets/e7dcc439-1445-4940-be49-06c41f8800e8" />
+
+Shows products with no sales records
+
+FULL JOIN
+--
+SELECT c.customer_name, s.sales_id FROM customers c FULL OUTER JOIN sales s ON c.customer_id = s.customer_id;
+<img width="691" height="223" alt="full join" src="https://github.com/user-attachments/assets/1fad6882-4327-468c-ae3d-3deac6f8667d" />
+
+includes customers with sales and customers without sales
+
+SELF JOIN
+--
+SELECT c1.customer_name AS customer1, c2.customer_name AS customer2, c1.Place FROM customers c1 JOIN customers c2 ON c1.Place = c2.Place AND c1.customer_id <> c2.customer_id;
+<img width="666" height="180" alt="self join" src="https://github.com/user-attachments/assets/b489b3b4-3b41-48a5-b321-2d8fae36cc34" />
+
+Shows customers who lives in the same place
