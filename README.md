@@ -21,3 +21,9 @@ Creating table products and inserting data
 --
 Query: Create table Products (product_id varchar(21) primary key, product_name varchar(21),product_price number);
 ![products table](https://github.com/user-attachments/assets/a5a949af-2f49-47a5-ae1a-ae40f1318939)
+
+Creating table sales and inserting data
+--
+Query: Create table Sales (sales_id varchar(21) primary key, Customer_id varchar(21),product_id varchar(21),sales_date DATE, quantity INT, 
+foreign key (Customer_id) references Customers(Customer_id),foreign key(product_id) references Products(product_id));
+![sales table](https://github.com/user-attachments/assets/d4cc5ee8-360b-494d-a91d-70199bf00708)
