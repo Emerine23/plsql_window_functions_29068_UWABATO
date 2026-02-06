@@ -100,3 +100,12 @@ SELECT c1.customer_name AS customer1, c2.customer_name AS customer2, c1.Place FR
 <img width="666" height="180" alt="self join" src="https://github.com/user-attachments/assets/b489b3b4-3b41-48a5-b321-2d8fae36cc34" />
 
 Shows customers who lives in the same place
+
+REFERENCES
+--
+[] https://docs.oracle.com/en/database/oracle/oracle-database/21/sqlrf/index.html
+[] https://www.postgresql.org/docs/current
+[] https://www.w3schools.com/sql
+[] : https://mode.com/sql-tutorial/sql-window-functions
+[] https://www.geeksforgeeks.org/sql-window-functions
+[] s6 Computer science book
