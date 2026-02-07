@@ -164,19 +164,26 @@ Result analysis
 1. Descriptive
 
 The sales data showed that some products sold much more than others.
+
 Total sales increased on some days and decreased on others.
+
 Some customers spent a lot of money while others spent very little.
+
 
 2. Diagnostic
 
 Products with higher prices and frequent purchases generated more revenue.
+
 Customers who bought many times spent more money overall.
+
 Low-selling products were either cheap or rarely purchased.
 
 3. Prescriptive
 
 The shop should focus more on promoting the best-selling products.
+
 Special offers and rewards should be given to high-spending customers.
+
 Marketing should be improved for products that sell poorly.
 
 REFERENCES
