@@ -35,7 +35,8 @@ ER diagram of the company
 
 Top products per revenue 
 --
-SELECT p.product_name, SUM(s.quantity * p.product_price) AS total_sales, ROW_NUMBER() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS row_no, RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS rank_no, DENSE_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS dense_rank_no, PERCENT_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price)) AS percent_rank FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.product_name;
+
+    SELECT p.product_name, SUM(s.quantity * p.product_price) AS total_sales, ROW_NUMBER() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS row_no, RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS rank_no, DENSE_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price) DESC) AS dense_rank_no, PERCENT_RANK() OVER (ORDER BY SUM(s.quantity * p.product_price)) AS percent_rank FROM sales s JOIN products p ON s.product_id = p.product_id GROUP BY p.product_name;
 
 ![Ranking functions](https://github.com/user-attachments/assets/bd76a939-7149-438d-983b-1a61d3c4e8da)
 
